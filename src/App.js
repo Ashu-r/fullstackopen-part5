@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Blog from './components/Blog';
 import blogService from './services/blogs';
 import Login from './components/Login';
+import Notification from './components/Notification'
+import NewBlogForm from './components/NewBlogForm'
 
 const App = () => {
 	const [blogs, setBlogs] = useState([]);
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [user, setUser] = useState(null);
+	const [errorMessage, setErrorMessage] = useState(null)
 
 	useEffect(() => {
 		blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -20,12 +23,13 @@ const App = () => {
 		if (loggedUserJSON) {
 			const user = JSON.parse(loggedUserJSON);
 			setUser(user);
-			// noteService.setToken(user.token);
+			blogService.setToken(user.token);
 		}
 	}, []);
 
 	return (
 		<div>
+		<Notification errorMessage={errorMessage}/>
 			{user === null ? (
 				<Login
 					username={username}
@@ -33,6 +37,7 @@ const App = () => {
 					setUsername={setUsername}
 					setPassword={setPassword}
 					setUser={setUser}
+					setErrorMessage={setErrorMessage}
 				/>
 			) : (
 				<div>
@@ -43,11 +48,10 @@ const App = () => {
 							window.localStorage.removeItem(
 								'loggedUser'
 							);
-						}}
-					>
+						}}>
 						Log Out
 					</button>
-					{/* {NewNote} */}
+					<NewBlogForm setBlogs={setBlogs} blogs={blogs} setErrorMessage={setErrorMessage}/>
 				</div>
 			)}
 			<h2>blogs</h2>

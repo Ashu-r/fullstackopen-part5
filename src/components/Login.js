@@ -1,5 +1,6 @@
 import React from 'react';
-import loginService from '../services/login';
+import blogService from '../services/blogs';
+import loginService from '../services/login'
 
 const Login = ({
 	username,
@@ -7,6 +8,7 @@ const Login = ({
 	setUsername,
 	setPassword,
 	setUser,
+	setErrorMessage
 }) => {
 	const handleLogin = async (event) => {
 		event.preventDefault();
@@ -17,6 +19,8 @@ const Login = ({
 				password,
 			});
 
+			blogService.setToken(user.token);
+
 			window.localStorage.setItem(
 				'loggedUser',
 				JSON.stringify(user)
@@ -26,9 +30,9 @@ const Login = ({
 			setUsername('');
 			setPassword('');
 		} catch (exception) {
-			// setErrorMessage('Wrong credentials');
+			setErrorMessage('Wrong credentials');
 			setTimeout(() => {
-				// setErrorMessage(null);
+				setErrorMessage(null);
 			}, 5000);
 		}
 	};
