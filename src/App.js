@@ -12,10 +12,10 @@ const App = () => {
 	const [password, setPassword] = useState('');
 	const [user, setUser] = useState(null);
 	const [errorMessage, setErrorMessage] = useState(null);
-	const [updateBlogList, setUpdateBlogList] = useState('');
+	const [blogChange, setBlogChange] = useState(false);
 	useEffect(() => {
 		blogService.getAll().then((blogs) => setBlogs(blogs));
-	}, [updateBlogList]);
+	}, [blogChange]);
 
 	useEffect(() => {
 		const loggedUserJSON = window.localStorage.getItem('loggedUser');
@@ -56,7 +56,8 @@ const App = () => {
 
 					<Togglable buttonLabel='New blog'>
 						<NewBlogForm
-							setUpdateBlogList={setUpdateBlogList}
+							blogChange={blogChange}
+							setBlogChange={setBlogChange}
 							setErrorMessage={setErrorMessage}
 						/>
 					</Togglable>
@@ -65,7 +66,8 @@ const App = () => {
 			<h2>blogs</h2>
 			{blogs.map((blog) => (
 				<Blog
-					setUpdateBlogList={setUpdateBlogList}
+					blogChange={blogChange}
+					setBlogChange={setBlogChange}
 					key={blog.id}
 					blog={blog}
 				/>

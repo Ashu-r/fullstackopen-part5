@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import blogService from '../services/blogs';
 
-const NewBlogForm = ({ setErrorMessage, setUpdateBlogList }) => {
+const NewBlogForm = ({
+	setErrorMessage,
+	blogChange,
+	setBlogChange,
+}) => {
 	const [title, settitle] = useState('');
 	const [author, setauthor] = useState('');
 	const [url, seturl] = useState('');
@@ -14,7 +18,7 @@ const NewBlogForm = ({ setErrorMessage, setUpdateBlogList }) => {
 				author,
 				url,
 			});
-			setUpdateBlogList(newBlog);
+			setBlogChange(blogChange);
 			settitle('');
 			setauthor('');
 			seturl('');

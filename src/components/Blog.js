@@ -2,7 +2,7 @@ import React from 'react';
 import Togglable from './Togglable';
 import blogService from '../services/blogs';
 
-const Blog = ({ blog, setlike }) => {
+const Blog = ({ blog, blogChange, setBlogChange }) => {
 	const blogStyle = {
 		padding: '15px',
 		border: '2px solid #5C6BC0',
@@ -14,7 +14,7 @@ const Blog = ({ blog, setlike }) => {
 			...blog,
 			likes: blog.likes + 1,
 		});
-		setlike(blog.likes + 1);
+		setBlogChange(!blogChange);
 	};
 	return (
 		<div style={blogStyle}>
