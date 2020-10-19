@@ -64,14 +64,16 @@ const App = () => {
 				</div>
 			)}
 			<h2>blogs</h2>
-			{blogs.map((blog) => (
-				<Blog
-					blogChange={blogChange}
-					setBlogChange={setBlogChange}
-					key={blog.id}
-					blog={blog}
-				/>
-			))}
+			{blogs
+				.sort((a, b) => b.likes - a.likes)
+				.map((blog) => (
+					<Blog
+						blogChange={blogChange}
+						setBlogChange={setBlogChange}
+						key={blog.id}
+						blog={blog}
+					/>
+				))}
 		</div>
 	);
 };
