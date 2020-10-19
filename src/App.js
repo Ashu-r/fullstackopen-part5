@@ -72,6 +72,7 @@ const App = () => {
 						setBlogChange={setBlogChange}
 						key={blog.id}
 						blog={blog}
+						user={user}
 					/>
 				))}
 		</div>

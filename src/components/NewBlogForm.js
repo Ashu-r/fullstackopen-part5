@@ -18,7 +18,7 @@ const NewBlogForm = ({
 				author,
 				url,
 			});
-			setBlogChange(blogChange);
+			setBlogChange(!blogChange);
 			settitle('');
 			setauthor('');
 			seturl('');
