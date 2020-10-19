@@ -5,6 +5,7 @@ const NewBlogForm = ({
 	setErrorMessage,
 	blogChange,
 	setBlogChange,
+	blogFormRef,
 }) => {
 	const [title, settitle] = useState('');
 	const [author, setauthor] = useState('');
@@ -13,6 +14,7 @@ const NewBlogForm = ({
 	const addNewBlog = async (event) => {
 		event.preventDefault();
 		try {
+			blogFormRef.current.toggleVisibility();
 			const newBlog = await blogService.create({
 				title,
 				author,

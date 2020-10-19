@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Blog from './components/Blog';
 import blogService from './services/blogs';
 import Login from './components/Login';
@@ -13,6 +13,9 @@ const App = () => {
 	const [user, setUser] = useState(null);
 	const [errorMessage, setErrorMessage] = useState(null);
 	const [blogChange, setBlogChange] = useState(false);
+
+	const blogFormRef = useRef();
+
 	useEffect(() => {
 		blogService.getAll().then((blogs) => setBlogs(blogs));
 	}, [blogChange]);
@@ -54,11 +57,12 @@ const App = () => {
 						</button>
 					</p>
 
-					<Togglable buttonLabel='New blog'>
+					<Togglable buttonLabel='New blog' ref={blogFormRef}>
 						<NewBlogForm
 							blogChange={blogChange}
 							setBlogChange={setBlogChange}
 							setErrorMessage={setErrorMessage}
+							blogFormRef={blogFormRef}
 						/>
 					</Togglable>
 				</div>
