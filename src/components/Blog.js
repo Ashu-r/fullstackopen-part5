@@ -41,15 +41,15 @@ const Blog = ({ blog, blogChange, setBlogChange, user }) => {
 		}
 	};
 	return (
-		<div style={blogStyle}>
-			{blog.title}
+		<div style={blogStyle} className='blog'>
+			{blog.title} {blog.author}
 			<Togglable buttonLabel='view' cancelLabel='hide'>
 				<p>{blog.url}</p>
 				<p>
 					{blog.likes} likes
 					<button onClick={updateLike}>like</button>
 				</p>
-				<p>-{blog.author}</p>
+				<p>{blog.user.username}</p>
 				<DeleteBtn />
 			</Togglable>
 		</div>
