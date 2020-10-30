@@ -1,6 +1,6 @@
 import React from 'react';
 import blogService from '../services/blogs';
-import loginService from '../services/login'
+import loginService from '../services/login';
 
 const Login = ({
 	username,
@@ -8,7 +8,7 @@ const Login = ({
 	setUsername,
 	setPassword,
 	setUser,
-	setErrorMessage
+	setErrorMessage,
 }) => {
 	const handleLogin = async (event) => {
 		event.preventDefault();
@@ -21,15 +21,13 @@ const Login = ({
 
 			blogService.setToken(user.token);
 
-			window.localStorage.setItem(
-				'loggedUser',
-				JSON.stringify(user)
-			);
+			window.localStorage.setItem('loggedUser', JSON.stringify(user));
 
 			setUser(user);
 			setUsername('');
 			setPassword('');
 		} catch (exception) {
+			console.log(exception);
 			setErrorMessage('Wrong credentials');
 			setTimeout(() => {
 				setErrorMessage(null);
@@ -41,26 +39,26 @@ const Login = ({
 			<div>
 				username
 				<input
+					id='username'
 					type='text'
 					value={username}
 					name='Username'
-					onChange={({ target }) =>
-						setUsername(target.value)
-					}
+					onChange={({ target }) => setUsername(target.value)}
 				/>
 			</div>
 			<div>
 				password
 				<input
+					id='password'
 					type='password'
 					value={password}
 					name='Password'
-					onChange={({ target }) =>
-						setPassword(target.value)
-					}
+					onChange={({ target }) => setPassword(target.value)}
 				/>
 			</div>
-			<button type='submit'>login</button>
+			<button id='login-button' type='submit'>
+				login
+			</button>
 		</form>
 	);
 };

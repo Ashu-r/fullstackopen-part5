@@ -1,9 +1,11 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { render } from '@testing-library/react/';
+import { render, fireEvent } from '@testing-library/react/';
 import Blog from './Blog';
 
-test('shows title and author', () => {
+let component;
+
+beforeEach(() => {
 	const blog = {
 		title: 'Test',
 		author: 'Josh',
@@ -16,9 +18,19 @@ test('shows title and author', () => {
 		},
 		id: '1234',
 	};
+	component = render(<Blog blog={blog} />);
+});
 
-	const component = render(<Blog blog={blog} />);
+test('shows title and author', () => {
 	const div = component.container.querySelector('.blog');
 
 	expect(div).toHaveTextContent('Test Josh');
+});
+
+test('url and number of likes', () => {
+	const button = component.getByText('view');
+	fireEvent.click(button);
+	const bloginfo = component.container.querySelector('.bloginfo');
+
+	expect(bloginfo).toHaveTextContent('www.test.com150');
 });
